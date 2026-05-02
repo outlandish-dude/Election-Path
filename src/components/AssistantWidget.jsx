@@ -8,7 +8,8 @@ const AssistantWidget = () => {
     { 
       id: 1, 
       type: 'bot', 
-      text: "Hi! I'm your ElectionPath assistant. I can help you understand any stage of the election or define tricky terms. What would you like to know?" 
+      text: "Hi! I'm your ElectionPath assistant. I can help you understand any stage of the election or define tricky terms. What would you like to know?",
+      source: 'system'
     }
   ]);
   const [inputValue, setInputValue] = useState('');
@@ -66,7 +67,7 @@ const AssistantWidget = () => {
       // Small delay for realism
       await new Promise(resolve => setTimeout(resolve, 500));
 
-      const response = await fetch('http://localhost:3001/api/chat', {
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,7 +80,12 @@ const AssistantWidget = () => {
       }
 
       const data = await response.json();
-      setMessages(prev => [...prev, { id: Date.now() + 1, type: 'bot', text: data.reply }]);
+      setMessages(prev => [...prev, { 
+        id: Date.now() + 1, 
+        type: 'bot', 
+        text: data.reply,
+        source: data.source 
+      }]);
     } catch (err) {
       console.error(err);
       setError("Sorry, I'm having trouble connecting right now. Please try again later.");
@@ -147,16 +153,25 @@ const AssistantWidget = () => {
                     `}>
                       {msg.type === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                     </div>
-                    <div className={`p-3.5 rounded-2xl text-[13px] leading-relaxed shadow-sm
-                      ${msg.type === 'user' 
-                        ? 'bg-accent-violet text-white rounded-tr-none' 
-                        : 'bg-white dark:bg-charcoal-800 border border-ivory-100 dark:border-charcoal-700 text-charcoal-900 dark:text-ivory-100 rounded-tl-none'}
-                    `}>
-                      {msg.text.split('\n').map((line, i) => (
-                        <p key={i} className={i > 0 ? 'mt-2' : ''}>
-                          {line.split('**').map((part, j) => j % 2 === 1 ? <strong key={j}>{part}</strong> : part)}
+                    <div className="flex flex-col gap-1">
+                      <div className={`p-3.5 rounded-2xl text-[13px] leading-relaxed shadow-sm
+                        ${msg.type === 'user' 
+                          ? 'bg-accent-violet text-white rounded-tr-none' 
+                          : 'bg-white dark:bg-charcoal-800 border border-ivory-100 dark:border-charcoal-700 text-charcoal-900 dark:text-ivory-100 rounded-tl-none'}
+                      `}>
+                        {msg.text.split('\n').map((line, i) => (
+                          <p key={i} className={i > 0 ? 'mt-2' : ''}>
+                            {line.split('**').map((part, j) => j % 2 === 1 ? <strong key={j}>{part}</strong> : part)}
+                          </p>
+                        ))}
+                      </div>
+                      {msg.type === 'bot' && msg.source && msg.source !== 'system' && (
+                        <p className={`text-[9px] font-bold uppercase tracking-widest px-1
+                          ${msg.source === 'gemini' ? 'text-accent-violet' : msg.source === 'groq' ? 'text-accent-emerald' : 'text-orange-500'}
+                        `}>
+                          {msg.source === 'gemini' ? '✨ Powered by Gemini' : msg.source === 'groq' ? '⚡ Fallback: Groq' : '⚠️ Offline Mode'}
                         </p>
-                      ))}
+                      )}
                     </div>
                   </div>
                 </motion.div>
