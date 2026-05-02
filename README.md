@@ -1,48 +1,228 @@
 # 🗳️ ElectionPath
 
-ElectionPath is a modern, interactive, and mobile-first educational platform designed to help citizens, students, and first-time voters understand the election process in a clear, engaging, and non-partisan way.
+**ElectionPath** is a modern, interactive civic-tech platform designed to simplify the election process for students, first-time voters, and the general public.
 
-## 🌟 Core Features
+It transforms complex election procedures into a **clear, guided, and AI-powered learning experience**.
 
-- **📍 Interactive Election Journey:** A guided, step-by-step roadmap from voter registration to counting day. Each stage features "Why it matters," "Who is involved," and common pitfalls.
-- **🤖 AI-Powered Civic Assistant:** A high-performance chatbot powered by **Groq (Llama 3.3 70B)**. It is context-aware, meaning it knows which part of the site you are currently reading to provide tailored help.
-- **🌗 Premium Dual-Theme Engine:** Features an elegant 'Premium White Mode' and a sleek 'Premium Dark Mode' built on a custom Ivory/Charcoal palette, breaking away from standard corporate blue designs.
-- **🎯 Hero Navigation Hybrid:** An interactive hero section featuring quick-access pills and tabs that act as the central dashboard for the platform.
-- **📅 Election Schedule:** A status-aware vertical timeline showing completed, active, and upcoming election phases.
-- **📚 Smart Glossary:** A searchable dictionary of election jargon (like *Constituency*, *Manifesto*, etc.) with interactive accordions.
-- **✅ Knowledge Quiz:** A fun way to check your understanding with instant feedback, hints, and scoring.
-- **🛡️ Trust & Transparency:** A strictly neutral, factual, and non-political design system inspired by government transparency portals but with a premium startup aesthetic.
-- **📱 Mobile-First Design:** Fully responsive layout that looks stunning on phones, tablets, and desktops.
+---
 
-## 🏗️ Technology Stack
+## 🚀 Live Demo
 
-- **Frontend:** React (Vite), Tailwind CSS, Framer Motion (Animations), Lucide Icons.
-- **Backend:** Node.js, Express.
-- **AI Engine:** Groq API (Llama 3.3 70B model).
-- **Security:** Backend proxy for API calls and `.env` environment variables.
+🌐 Deployed on Google Cloud Run
+👉 https://election-path-996339334653.us-central1.run.app/
 
-## 🚀 Getting Started
+---
+
+## 💡 Problem Statement
+
+Understanding the election process can be confusing due to:
+
+* Complex terminology
+* Multiple stages and rules
+* Lack of accessible explanations
+
+ElectionPath solves this by providing a **step-by-step, interactive, and AI-assisted guide**.
+
+---
+
+## ✨ Key Features
+
+### 🗺️ Interactive Election Journey
+
+* Step-by-step roadmap:
+  Registration → Nomination → Campaign → Voting → Counting → Results
+* Each stage includes:
+
+  * What happens
+  * Why it matters
+  * Who is involved
+  * Common mistakes
+
+---
+
+### 🤖 AI-Powered Civic Assistant
+
+* Context-aware chatbot
+* Explains concepts in simple, neutral language
+* Adapts responses based on the section the user is viewing
+
+---
+
+### ⚡ Dual AI Architecture (High Reliability)
+
+* **Primary:** Google Gemini API
+* **Fallback:** Groq (LLaMA 3)
+
+Ensures:
+
+* No downtime
+* Fast responses
+* Graceful failure handling
+
+---
+
+### 📅 Election Timeline
+
+* Visual representation of election phases
+* Status-based flow (upcoming, active, completed)
+
+---
+
+### 📚 Smart Glossary
+
+* Simplified definitions of election-related terms
+* Beginner-friendly explanations
+
+---
+
+### 🧠 Knowledge Quiz
+
+* Interactive questions
+* Instant feedback
+* Reinforces understanding
+
+---
+
+### 🎨 Premium UI/UX
+
+* Clean, modern design
+* Premium White & Dark modes
+* Smooth animations and transitions
+* Mobile-first responsive layout
+
+---
+
+## 🏗️ Tech Stack
+
+### Frontend
+
+* React (Vite)
+* Tailwind CSS
+* Framer Motion
+* Lucide Icons
+
+### Backend
+
+* Node.js
+* Express
+
+### AI Integration
+
+* Google Gemini API (Primary)
+* Groq API (Fallback)
+
+### Deployment
+
+* Google Cloud Run
+
+---
+
+## 🧠 Architecture Overview
+
+User → Frontend → Backend API → AI Layer
+
+AI Layer Logic:
+
+1. Try Gemini API
+2. If failure → fallback to Groq
+3. If both fail → return safe default response
+
+This ensures **high availability and reliability**.
+
+---
+
+## 🔒 Security Practices
+
+* API keys stored using environment variables
+* No sensitive data exposed to frontend
+* `.env` excluded via `.gitignore`
+* Backend proxy protects AI APIs
+
+---
+
+## ⚙️ Local Setup
 
 ### Prerequisites
-- Node.js installed on your machine.
-- A **Groq API Key** (placed in a `.env` file).
+
+* Node.js installed
+* API keys (Gemini / Groq)
+
+---
 
 ### Installation
-1. Clone the repository.
-2. Run `npm install` to install dependencies.
 
-### Running the Project
-You need to run both the backend AI server and the frontend development server:
+```bash
+npm install
+```
 
-**Terminal 1 (Backend AI Proxy):**
+---
+
+### Run Backend
+
 ```bash
 node server.js
 ```
 
-**Terminal 2 (Frontend UI):**
+---
+
+### Run Frontend
+
 ```bash
 npm run dev
 ```
 
-## 🔒 Security Note
-This project uses a backend proxy (`server.js`) to ensure that your **Groq API Key** is never exposed to the client-side code, keeping your credentials secure.
+---
+
+## ☁️ Deployment (Google Cloud Run)
+
+This project is deployed using Google Cloud Run:
+
+```bash
+gcloud run deploy election-path \
+--source . \
+--allow-unauthenticated
+```
+
+Environment variables are securely configured during deployment.
+
+---
+
+## 🎯 Key Highlights
+
+* Built using AI-assisted development (Prompt-driven approach)
+* Focus on **clarity, accessibility, and real-world usability**
+* Designed as a **product**, not just a project
+* Uses Google Cloud infrastructure for scalability
+
+---
+
+## 📌 Hackathon Context
+
+This project was developed as part of:
+
+**Prompt Wars Virtual — Challenge 2: Election Process Education**
+
+Goal:
+To create an assistant that explains election processes in an interactive and easy-to-understand way.
+
+---
+
+## 🤝 Connect
+
+* LinkedIn: https://www.linkedin.com/in/rajdeepdutta27/
+* GitHub: https://github.com/outlandish-dude
+
+---
+
+## 📄 Disclaimer
+
+This project is developed for educational purposes as part of a hackathon challenge.
+It is a neutral, non-partisan platform and does not promote any political party, candidate, or ideology.
+
+Users are encouraged to refer to official sources for authoritative information.
+
+---
+
+## © Copyright
+
+© Rajdeep Dutta. All rights reserved.
