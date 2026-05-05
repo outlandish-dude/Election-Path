@@ -167,9 +167,9 @@ const AssistantWidget = () => {
                       </div>
                       {msg.type === 'bot' && msg.source && msg.source !== 'system' && (
                         <p className={`text-[9px] font-bold uppercase tracking-widest px-1
-                          ${msg.source === 'gemini' ? 'text-accent-violet' : msg.source === 'groq' ? 'text-accent-emerald' : 'text-orange-500'}
+                          ${msg.source !== 'local_fallback' ? 'text-accent-violet' : 'text-orange-500'}
                         `}>
-                          {msg.source === 'gemini' ? '✨ Powered by Gemini' : msg.source === 'groq' ? '⚡ Fallback: Groq' : '⚠️ Offline Mode'}
+                          {msg.source !== 'local_fallback' ? '✨ AI Assistant' : '⚠️ Offline Mode'}
                         </p>
                       )}
                     </div>
